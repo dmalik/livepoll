@@ -1,15 +1,15 @@
 {
   "name": "react-boilerplate",
-  "version": "3.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "version": "0.1.0",
+  "description": "A live poll sample application",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/dmalik/livepoll"
   },
   "engines": {
     "npm": ">=3"
   },
-  "author": "Max Stoiber",
+  "author": "Dustin Malik",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
