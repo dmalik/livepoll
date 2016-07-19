@@ -208,6 +208,7 @@
     "null-loader": "0.1.1",
     "offline-plugin": "3.4.2",
     "plop": "1.5.0",
+    "postcss-advanced-variables": "^1.2.2",
     "postcss-cssnext": "2.7.0",
     "postcss-focus": "1.0.0",
     "postcss-loader": "0.9.1",
