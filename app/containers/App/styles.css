@@ -4,6 +4,12 @@
  * App container styles
  */
 
+body {
+  font-family: 'Quicksand', Helvetica, Arial, sans-serif;
+  background-color: #676767;
+}
+
+
 .container {
   display: block;
 }

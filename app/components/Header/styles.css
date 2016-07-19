@@ -1,0 +1,42 @@
+.headerSection{
+  display: flex;
+  flex-flow: row;
+  border-bottom: 2px solid #2e2e2f;
+  align-items: stretch;
+  align-content: stretch;
+  justify-content: flex-start;
+  height: auto;
+}
+
+.iconBox,
+.arrowBox,
+.questionBox{
+  display: flex;
+  order: 0;
+  height: auto;
+  color: #d5d3de;
+  padding: 1.5rem 0.8rem 1.5rem 0.8rem;
+  border: 1px solid #2e2e2f;
+  align-items:center;
+  font-size: 1.5em;
+}
+
+.iconBox{
+  padding: 0rem 0.8rem 0rem 0.8rem;
+  background-color: #3d3d3f;
+  width: 150px;
+  justify-content:center;
+}
+
+.arrowBox{
+  background-color: #5c5a5d;
+  justify-content:center;
+  width: 5px;
+  font-size: 1.2em;
+}
+
+.questionBox{
+  flex: 1;
+  background-color: #444549;
+  text-transform: uppercase;
+}

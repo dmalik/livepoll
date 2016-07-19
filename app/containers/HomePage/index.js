@@ -10,12 +10,25 @@
  */
 
 import React from 'react';
+import Helmet from 'react-helmet';
+
+import Header from 'components/Header';
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     return (
-      <h1>This is the Homepage!</h1>
+      <div>
+        <Helmet
+          titleTemplate="%s - Live Poll"
+          defaultTitle="Live Poll"
+          meta={[
+            { name: 'description', content: 'A live poll sample application' },
+          ]}
+        />
+        <Header/>
+        <h1>THIS IS THE LIVEPOLL</h1>
+      </div>
     );
   }
 }
