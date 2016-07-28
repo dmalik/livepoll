@@ -29,6 +29,7 @@ import 'sanitize.css/sanitize.css';
 // e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
 const initialState = {};
 const store = configureStore(initialState, browserHistory);
+const API_KEY = 'AIzaSyBLQXmGodJmk_H5XaadzHndJQl8-K7YMws'; // eslint-disable-line no-unused-vars
 
 // Sync history and store, as the react-router-redux reducer
 // is under the non-default key ("routing"), selectLocationState

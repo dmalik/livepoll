@@ -1,0 +1,10 @@
+.container {
+  min-width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  box-sizing: border-box;
+  box-orient: vertical;
+  box-direction: normal;
+  flex-direction: column;
+}

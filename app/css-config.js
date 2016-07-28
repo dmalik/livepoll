@@ -1,7 +1,7 @@
+/* eslint-disable */
 //colors are ordered from lightest(1) to darkest(6)
-
 module.exports = {
-  'black': '#a8a5ad',
+  'black': '#1f1f1f',
   'white': '#d5d3de',
   'gray1': '#715c57',
   'gray2': '#8c8992',

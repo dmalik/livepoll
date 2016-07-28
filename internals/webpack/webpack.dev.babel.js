@@ -16,7 +16,9 @@ const cssnext = require('postcss-cssnext');
 const postcssFocus = require('postcss-focus');
 const postcssReporter = require('postcss-reporter');
 const postcssVariables = require('postcss-advanced-variables');
-const cssConfig = require('../../app/css-config.js')
+const cssConfig = require('../../app/css-config.js');
+
+const ip = require('ip');
 
 const plugins = [
   new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
@@ -37,6 +39,7 @@ module.exports = require('./webpack.base.babel')({
 
   // Don't use hashes in dev mode for better performance
   output: {
+    publicPath: `http://${ip.address()}:3000/`, // <-- overwrite public path
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
   },
@@ -55,11 +58,11 @@ module.exports = require('./webpack.base.babel')({
       browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
       features: {
         customProperties: {
-          variables: cssConfig
+          variables: cssConfig,
         },
         calc: {
           mediaQueries: true,
-        }
+        },
       },
     }),
     postcssReporter({ // Posts messages from plugins to the terminal
@@ -73,7 +76,7 @@ module.exports = require('./webpack.base.babel')({
   },
 
   // Emit a source map for easier debugging
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
 });
 
 /**
@@ -87,7 +90,9 @@ module.exports = require('./webpack.base.babel')({
  */
 function dependencyHandlers() {
   // Don't do anything during the DLL Build step
-  if (process.env.BUILDING_DLL) { return []; }
+  if (process.env.BUILDING_DLL) {
+    return [];
+  }
 
   // If the package.json does not have a dllPlugin property, use the CommonsChunkPlugin
   if (!dllPlugin) {
@@ -155,7 +160,9 @@ function templateContent() {
     path.resolve(process.cwd(), 'app/index.html')
   ).toString();
 
-  if (!dllPlugin) { return html; }
+  if (!dllPlugin) {
+    return html;
+  }
 
   const doc = cheerio(html);
   const body = doc.find('body');

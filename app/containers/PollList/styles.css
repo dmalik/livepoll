@@ -1,0 +1,16 @@
+.pollListBg {
+  display: flex;
+  flex-direction: column;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--gray5) url(./bg.jpg) no-repeat fixed center;
+  background-size: cover;
+  flex: 1 0 auto;
+  height: 100%;
+  align-items: center;
+  align-self: stretch;
+  padding: 3rem;
+}
