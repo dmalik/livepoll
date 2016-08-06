@@ -116,6 +116,8 @@
   cursor: pointer;
   cursor: hand;
   transition-duration: 300ms;
+  font-size: 16px;
+  font-family: var(--primary-font);
 }
 
 .voteButton:hover {

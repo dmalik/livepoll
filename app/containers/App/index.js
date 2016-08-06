@@ -15,6 +15,9 @@ import React from 'react';
 
 import 'sanitize.css/sanitize.css';
 
+import 'velocity-animate';
+import 'velocity-animate/velocity.ui';
+
 import styles from './styles.css';
 
 export default class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
