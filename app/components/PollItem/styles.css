@@ -68,7 +68,26 @@
 .media {
   flex: 1 0 auto;
   background-color: rgba(30,30,30, 0.5);
-  padding: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  min-height: 172px;
+}
+
+.thumbnail {
+  cursor: pointer;
+  cursor: hand;
+  height:100%;
+  width:100%;
+  height:auto;
+  position: relative;
+}
+
+.playButton {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url(./images/play.png) no-repeat;
+  background-position: 50% 50%;
 }
 
 .voteContainer {
@@ -77,11 +96,9 @@
   background-color: var(--gray4);
   flex-direction: row;
   flex-wrap: nowrap;
-
   justify-content: center;
   align-items: center;
   text-align: center;
-  flex: 1 0 auto;
 }
 
 .voteLeft{
@@ -102,7 +119,7 @@
 }
 
 .voteButton {
-  height: 100%;
+  height: 45px;
   display: flex;
   flex: 1 0 auto;
   justify-content: center;
@@ -120,10 +137,6 @@
   font-family: var(--primary-font);
 }
 
-.voteButton:hover {
-  background-color: var(--blue);
-}
-
 .separator {
   flex: 1 0 auto;
   border-top: 1px solid var(--black);
@@ -133,7 +146,85 @@
 }
 
 .stats {
+  display: flex;
   flex: 1 0 auto;
-  padding: 0.5rem;
+  background-color: var(--gray4);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: var(--gray6);
+}
+
+.leftStats {
+  padding: 0.1rem;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-flow: column wrap;
+  display: flex;
+  border-right: 2px solid var(--black);
+}
+
+.rightStats {
+  padding: 0.5rem;
+  display: flex;
+  flex: 4 0 auto;
+  flex-flow: column wrap;
+  display: flex;
+}
+
+.voteCount{
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-top: -5px;
+}
+
+.voteLabel {
+  margin-top: -5px;
+  font-size: 12px;
+}
+
+.percentage {
+  margin-top: -5px;
+  font-weight: 700;
+  color: var(--blue);
+  font-size: 14px;
+  text-align: right;
+}
+
+.percentChart{
+  background-color: var(--gray4);
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-flow: row;
+  display: flex;
+  width: 100%;
+  height: 10px;
+}
+
+.chartEdge{
+  height:10px;
+  width:5px;
+  background-color: var(--gray2);
+  flex: 1 0 auto;
+}
+
+.chartOverlay{
+  position: absolute;
+  background-color: var(--blue);
+  height: 10px;
+  margin-top:-5px;
+}
+
+.chartBG{
+  flex: 100 0 auto;
+  position: relative;
 }

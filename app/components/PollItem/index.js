@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.css';
 
+import YouTube from 'react-youtube';
 import VelocityComponent   from 'velocity-react/velocity-component';
 import velocityHelpers  from 'velocity-react/velocity-helpers';
 
@@ -62,15 +63,80 @@ let AnimationsRight = {
   }),
 };
 
+let AnimationsVote = {
+  over: velocityHelpers.registerEffect({
+    defaultDuration: 50,
+    calls: [
+      [{
+        backgroundColor: "#1f6fe6",
+      }, 1, {
+        easing: 'ease-out',
+      }],
+    ],
+  }),
+
+  out: velocityHelpers.registerEffect({
+    defaultDuration: 50,
+    calls: [
+      [{
+        backgroundColor: "#1f1f1f",
+      }, 1, {
+        easing: 'ease-in',
+      }],
+    ],
+  }),
+
+  down: velocityHelpers.registerEffect({
+    defaultDuration: 50,
+    reverse: true,
+    calls: [
+      [{
+        backgroundColor: "#1f1f1f",
+        easing: 'ease-in',
+      }, 1, {
+        easing: 'ease-in',
+      }],
+    ],
+  }),
+};
+
+let AnimationsPlay = {
+  over: velocityHelpers.registerEffect({
+    defaultDuration: 200,
+    calls: [
+      [{
+        scale: ['100%'],
+        opacity: 1,
+      }, 1, {
+        easing: 'pulse',
+      }],
+    ],
+  }),
+
+  out: velocityHelpers.registerEffect({
+    defaultDuration: 200,
+    calls: [
+      [{
+        scale: ['80%'],
+        opacity: 0.7,
+      }, 1, {
+        easing: 'ease-in',
+      }],
+    ],
+  }),
+};
+
 export default class PollItem extends React.Component { // eslint-disable-line
 
   constructor() {
     super();
-    this.state = {hovering: false, duration: 200};
+    this.state = {hovering: false, duration: 200, voteclick: 0, mediaclick: false, playHover: false};
   }
 
   voteClick = (e) => {
     console.log("Clickers!");
+    this.state.voteclick = 1;
+    this.setState({hovering: false});
   }
 
   whenMouseEntered = (e) => {
@@ -83,17 +149,66 @@ export default class PollItem extends React.Component { // eslint-disable-line
     console.log("Out!");
   }
 
+  mediaClick = (e) => {
+    console.log("media click");
+    this.setState({mediaclick: true});
+  }
+
+  playHovering = (e) => {
+    this.setState({playHover: true});
+    console.log("Over!");
+  }
+
+  playOut = (e) => {
+    this.setState({playHover: false});
+    console.log("Out!");
+  }
+
+  onReady(event) {
+    console.log(`YouTube Player object for videoId: "${this.state.videoId}" has been saved to state.`); // eslint-disable-line
+    this.setState({
+      player: event.target,
+    });
+  }
+
   render() {
+
+    const opts = {
+      height: '155',
+      width: '275',
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 1
+      }
+    };
 
     let arrowAnimationLeft;
     let arrowAnimationRight;
+    let voteAnimation;
+    let playAnimation;
 
     if (this.state.hovering) {
       arrowAnimationLeft = AnimationsLeft.over;
       arrowAnimationRight = AnimationsRight.over;
+      voteAnimation = AnimationsVote.over;
     } else {
       arrowAnimationLeft = AnimationsLeft.out;
       arrowAnimationRight = AnimationsRight.out;
+      voteAnimation = AnimationsVote.out;
+    }
+
+    if (this.state.voteclick) {
+      voteAnimation = AnimationsVote.down;
+      this.state.voteclick = 0;
+    }
+
+    if (this.state.playHover) {
+      playAnimation = AnimationsPlay.over;
+    } else {
+      playAnimation = AnimationsPlay.out;
+    }
+
+    let chartWidth = {
+      width: '42%',
     }
 
     return (
@@ -111,24 +226,54 @@ export default class PollItem extends React.Component { // eslint-disable-line
           <div className={styles.spacer}></div>
           <div className={styles.middle}>
             <div className={styles.title}>Young The Giant<br/>Something To Believe In</div>
-            <div className={styles.media}>Media</div>
+            <div className={styles.media}>
+              { this.state.mediaclick ?
+                <YouTube videoId='m_ZRWZv14SA' opts={opts} onReady={this._onReady}/>
+                :
+                <div className={styles.thumbnail} key={this.state.mediaclick} onClick={this.mediaClick} onMouseEnter={this.playHovering} onMouseLeave={this.playOut}>
+                  <VelocityComponent animation={playAnimation}>
+                    <div className={styles.playButton}></div>
+                  </VelocityComponent>
+                  <img src="https://i.ytimg.com/vi/m_ZRWZv14SA/sddefault.jpg" width="275" height="155"/>
+                </div>
+
+              }
+            </div>
             <div className={styles.voteContainer}>
               <div className={styles.voteLeft}>
-                <VelocityComponent animation={arrowAnimationLeft} >
-                  <span> > > > </span>
+                <VelocityComponent animation={arrowAnimationLeft}>
+                  <span> > &#160; > &#160; > </span>
                 </VelocityComponent>
               </div>
-              <button className={styles.voteButton} onClick={this.voteClick} onMouseEnter={this.whenMouseEntered} onMouseLeave={this.whenMouseLeft}>
-                Vote
-              </button>
+              <VelocityComponent animation={voteAnimation}>
+                <button className={styles.voteButton} onClick={this.voteClick} onMouseEnter={this.whenMouseEntered}
+                        onMouseLeave={this.whenMouseLeft}>
+                  VOTE
+                </button>
+              </VelocityComponent>
               <div className={styles.voteRight}>
-                <VelocityComponent animation={arrowAnimationRight} >
-                  <span>&#60; &#60; &#60;</span>
+                <VelocityComponent animation={arrowAnimationRight}>
+                  <span>&#60; &#160; &#60; &#160; &#60;</span>
                 </VelocityComponent>
               </div>
             </div>
             <div className={styles.separator}></div>
-            <div className={styles.stats}>Split it!</div>
+            <div className={styles.stats}>
+              <div className={styles.leftStats}>
+                <div className={styles.voteCount}>324</div>
+                <div className={styles.voteLabel}>TOTAL VOTES</div>
+              </div>
+              <div className={styles.rightStats}>
+                <div className={styles.percentage}>42%</div>
+                <div className={styles.percentChart}>
+                  <div className={styles.chartEdge}></div>
+                  <div className={styles.chartBG}>
+                    <div className={styles.chartOverlay} style={chartWidth}></div>
+                  </div>
+                  <div className={styles.chartEdge}></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className={styles.spacer}></div>
           <div className={styles.rightSide}>

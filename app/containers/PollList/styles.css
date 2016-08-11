@@ -2,7 +2,7 @@
   display: flex;
   flex: 1 0 auto;
   height: 100%;
-  background: var(--gray5) url(./bg.jpg) no-repeat fixed center;
+  background: var(--gray5) url(./images/bg.jpg) no-repeat fixed center;
   background-size: cover;
   align-items: center;
   align-self: stretch;
