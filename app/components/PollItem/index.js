@@ -130,13 +130,18 @@ export default class PollItem extends React.Component { // eslint-disable-line
 
   constructor() {
     super();
-    this.state = {hovering: false, duration: 200, voteclick: 0, mediaclick: false, playHover: false};
+    this.state = {hovering: false, duration: 200, voteclick: false, mediaclick: false, playHover: false};
   }
 
   voteClick = (e) => {
     console.log("Clickers!");
-    this.state.voteclick = 1;
+    this.setState({voteclick: true});
     this.setState({hovering: false});
+  }
+
+  voteClickDone = () => {
+    console.log("Vote Click Done!");
+    this.setState({voteclick: false});
   }
 
   whenMouseEntered = (e) => {
@@ -162,13 +167,6 @@ export default class PollItem extends React.Component { // eslint-disable-line
   playOut = (e) => {
     this.setState({playHover: false});
     console.log("Out!");
-  }
-
-  onReady(event) {
-    console.log(`YouTube Player object for videoId: "${this.state.videoId}" has been saved to state.`); // eslint-disable-line
-    this.setState({
-      player: event.target,
-    });
   }
 
   render() {
@@ -198,7 +196,6 @@ export default class PollItem extends React.Component { // eslint-disable-line
 
     if (this.state.voteclick) {
       voteAnimation = AnimationsVote.down;
-      this.state.voteclick = 0;
     }
 
     if (this.state.playHover) {
@@ -246,7 +243,7 @@ export default class PollItem extends React.Component { // eslint-disable-line
                 </VelocityComponent>
               </div>
               <VelocityComponent animation={voteAnimation}>
-                <button className={styles.voteButton} onClick={this.voteClick} onMouseEnter={this.whenMouseEntered}
+                <button className={styles.voteButton} onMouseDown={this.voteClick} onMouseUp={this.voteClickDone} onMouseEnter={this.whenMouseEntered}
                         onMouseLeave={this.whenMouseLeft}>
                   VOTE
                 </button>
